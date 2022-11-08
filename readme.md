@@ -1,4 +1,12 @@
 https://bundle-buddy.com/parcel
 
-* [x] 静态资源文件加载
-* [x] 服务器部署资源目录配置
+
+
+使用 parcel + vue3 + element-plus 的项目框架
+
+已包含配置项目
+* [x] 资源路径
+* [x] 部署路径
+* [x] axios请求
+* [x] vuex状态管理
+* [x] 事件管理EventBus

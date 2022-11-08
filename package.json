@@ -31,8 +31,7 @@
     "vuex-persistedstate": "^4.1.0"
   },
   "alias": {
-    "@/*": "/src/$1",
-    "$/static/*": "/static/*"
+    "@/*": "/src/$1"
   },
   "devDependencies": {
     "@parcel/config-default": "^2.7.0",

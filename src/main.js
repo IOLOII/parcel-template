@@ -16,6 +16,7 @@ import eventBus from '@/lib/eventBus'
 window.$axios = service
 window.$message = ElMessage
 window.$messageBox = ElMessageBox
+window.$eventBus = eventBus
 
 let app = createApp(App)
 app.use(ElementPlus,

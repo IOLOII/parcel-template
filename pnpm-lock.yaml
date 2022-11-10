@@ -13,12 +13,14 @@ specifiers:
   element-plus: ^2.2.20
   js-cookie: ^3.0.1
   normalize.css: ^8.0.1
+  number-precision: ^1.6.0
   only-allow: ^1.1.1
   parcel: ^2.7.0
   parcel-reporter-static-files-copy: ^1.4.0
   process: ^0.11.10
   qs: ^6.11.0
   rimraf: ^3.0.2
+  seamscroll: ^0.0.12
   tiny-emitter: ^2.1.0
   vue: ^3.2.41
   vue-echarts: ^6.2.3
@@ -33,9 +35,11 @@ dependencies:
   element-plus: registry.npmmirror.com/element-plus/2.2.20_vue@3.2.41
   js-cookie: registry.npmmirror.com/js-cookie/3.0.1
   normalize.css: registry.npmmirror.com/normalize.css/8.0.1
+  number-precision: registry.npmmirror.com/number-precision/1.6.0
   only-allow: registry.npmmirror.com/only-allow/1.1.1
   parcel: registry.npmmirror.com/parcel/2.7.0
   qs: registry.npmmirror.com/qs/6.11.0
+  seamscroll: registry.npmmirror.com/seamscroll/0.0.12
   tiny-emitter: registry.npmmirror.com/tiny-emitter/2.1.0
   vue: registry.npmmirror.com/vue/3.2.41
   vue-echarts: registry.npmmirror.com/vue-echarts/6.2.3_echarts@5.4.0+vue@3.2.41
@@ -1681,6 +1685,12 @@ packages:
     version: 7.2.0
     engines: {node: '>= 10'}
 
+  registry.npmmirror.com/comutils/1.1.19:
+    resolution: {integrity: sha512-JxXB67juILiwhdLwOsYyjUqwWEhHdObI0EClOPk+JDtEuTbac59s0pxGpfCBnNNQ5JommifmcMGneW/4Cg7YWw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/comutils/-/comutils-1.1.19.tgz}
+    name: comutils
+    version: 1.1.19
+    dev: false
+
   registry.npmmirror.com/concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/concat-map/-/concat-map-0.0.1.tgz}
     name: concat-map
@@ -2636,6 +2646,12 @@ packages:
     name: nullthrows
     version: 1.1.1
 
+  registry.npmmirror.com/number-precision/1.6.0:
+    resolution: {integrity: sha512-05OLPgbgmnixJw+VvEh18yNPUo3iyp4BEWJcrLu4X9W05KmMifN7Mu5exYvQXqxxeNWhvIF+j3Rij+HmddM/hQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/number-precision/-/number-precision-1.6.0.tgz}
+    name: number-precision
+    version: 1.6.0
+    dev: false
+
   registry.npmmirror.com/object-inspect/1.12.2:
     resolution: {integrity: sha512-z+cPxW0QGUp0mcqcsgQyLVRDoXFQbXOwBaqyF7VIgI4TWNQsDHrBpUQslRmIfAoYWdYzs6UlKJtB2XJpTaNSpQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/object-inspect/-/object-inspect-1.12.2.tgz}
     name: object-inspect
@@ -2887,6 +2903,14 @@ packages:
       immutable: registry.npmmirror.com/immutable/4.1.0
       source-map-js: registry.npmmirror.com/source-map-js/1.0.2
     dev: true
+
+  registry.npmmirror.com/seamscroll/0.0.12:
+    resolution: {integrity: sha512-HCfipsYpzHOK+m8A4IcC5HWon7mmzSksvHmQ/L+dA13gP5DVj/i93T0QpumFslGstPFOHP2UWttnYnZZG8ySWw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/seamscroll/-/seamscroll-0.0.12.tgz}
+    name: seamscroll
+    version: 0.0.12
+    dependencies:
+      comutils: registry.npmmirror.com/comutils/1.1.19
+    dev: false
 
   registry.npmmirror.com/semver/5.7.1:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/semver/-/semver-5.7.1.tgz}

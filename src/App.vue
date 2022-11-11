@@ -2,15 +2,25 @@
   <el-container class="home-page">
     <el-header style="background-color: #2175ef" class="top">
       <el-row justify="space-between">
-        <el-col :span="4" class="left-title">交通智管通</el-col>
-        <el-col :span="4" class="right-title">驾驶舱</el-col>
+        <el-col :span="12" class="left-title">
+          <icon type="icon-logotubiao" style="font-size: 48px" />
+          <span style="padding-left: 8px">交通智管通</span>
+        </el-col>
+        <el-col
+          :span="12"
+          class="right-title"
+          @click="open('http://183.248.49.207:8085/#/')"
+        >
+          <icon type="icon-jiashicangtubiao" style="font-size: 24px" />
+          <span style="padding-left: 8px">驾驶舱</span>
+        </el-col>
       </el-row>
     </el-header>
     <el-container class="main-wapper">
       <el-main height="100%">
         <div class="card main-top-menus">
           <div v-for="(app, index) in staticData.appList" :key="index">
-            <div class="top-icon">
+            <div class="top-icon" @click="index !== 0 ? open(app.link) : void 0">
               <icon :type="app.icon" />
               <div>
                 {{ app.name }}
@@ -142,7 +152,7 @@
                     <h3 class="h3-title">运输监管</h3>
                     <el-row style="height: calc(100% - 67px)">
                       <!-- 数据元素 -->
-                      <el-col :span="11" style="height: 190px">
+                      <el-col :span="11" style="height: 220px">
                         <v-chart class="chart" :option="option_bar" theme="RGYB" />
                       </el-col>
                       <!-- 数据元素 -->
@@ -291,7 +301,7 @@
                 <div class="card">
                   <h3 class="h3-title">应急工单</h3>
                   <el-row style="height: calc(100% - 67px)">
-                    <el-col :span="24" style="height: 200px">
+                    <el-col :span="24" style="height: 220px">
                       <v-chart class="chart" :option="option_bar2" theme="RGYB" />
                     </el-col>
                     <el-col :span="24" style="height: 50%">
@@ -383,12 +393,14 @@
                 </el-carousel>
                 <div
                   style="
-                    height: auto;
+                    height: 258px;
                     font-size: 12px;
                     color: #969697;
-                    line-height: 40px;
+                    line-height: 28px;
                     background: #f4f6f8;
                     margin-top: 20px;
+                    overflow-y: auto;
+                    padding: 20px;
                   "
                 >
                   <p style="margin: 0">
@@ -397,9 +409,8 @@
                   <p style="margin: 0">
                     组织实施全县普通干线公路应急抢险、应急性养护、突击清理等工作
                   </p>
-                  <p style="margin: 0">
-                    承担全县国防战备保障相关工作 承担全县普通国省道桥梁隧道维护工作
-                  </p>
+                  <p style="margin: 0">承担全县国防战备保障相关工作</p>
+                  <p style="margin: 0">承担全县普通国省道桥梁隧道维护工作</p>
                   <p style="margin: 0">承担全县道路运输及相关业务行业管理的辅助工作</p>
                   <p style="margin: 0">承担全县道路运输应急运力保障的辅助工作</p>
                 </div>
@@ -410,6 +421,9 @@
       </el-main>
     </el-container>
   </el-container>
+  <div id='visibility-tips'>
+  <el-empty :image-size="200" description="当前显示分辨率过小，请缩放浏览器或调整显示器（分辨率 >= 1200px）"/>
+  </div>
 </template>
 
 <script setup>
@@ -433,7 +447,7 @@
       {
         name: '数字公路',
         icon: 'icon-shuzigonglutubiao',
-        link: ''
+        link: 'https://cxjt.91jt.net:9090/3305220Pc/#/login'
       },
       {
         name: '公路保洁',
@@ -443,17 +457,18 @@
       {
         name: '运输监管',
         icon: 'icon-yunshujianguantubiao',
-        link: ''
+        link: 'https://cxjg.91jt.net:9090/danger_jgd/a/login'
       },
       {
         name: '应急工单',
         icon: 'icon-yingjigongdantubiao',
-        link: ''
+        link: 'https://cxjg.91jt.net:9090/pc/'
       },
       {
         name: '长智寻路',
         icon: 'icon-changzhixunlutubiao',
-        link: ''
+        link:
+          'https://app.changxinghuiyuan.com/electronic-map/elec-admin/index.html#/login'
       }
     ],
     dataCenter: [
@@ -538,8 +553,8 @@
       left: 60,
       // right:10,
       top: 20,
-      bottom: 20,
-      height: '106px'
+      bottom: 20
+      // height: '166px'
     }
   })
   // 数字公路-应急工单
@@ -736,6 +751,9 @@
 
   // events & funs
   const _foo = () => {}
+  const open = link => {
+    link && window.open(link)
+  }
 </script>
 <style lang="scss">
   *::-webkit-scrollbar {
@@ -795,12 +813,20 @@
       font-size: 28px;
       line-height: 90px;
       font-weight: bolder;
+      display: flex;
+      align-items: center;
     }
     .right-title {
       text-align: right;
       color: white;
       line-height: 90px;
       font-weight: bold;
+      display: flex;
+      align-items: center;
+          justify-content: flex-end;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
   .main-wapper {
@@ -811,7 +837,6 @@
       flex-direction: column;
       gao: 20px;
     }
-
     .main-top-menus {
       width: 100%;
       min-height: 160px;
@@ -823,13 +848,20 @@
       font-size: 24px;
       color: #ababc0;
       padding-right: 160px;
-      > div {
-        height: auto;
+      > div:not(:first-child) {
+        .top-icon:hover {
+          background: #2174ef0f;
+          cursor: pointer;
+          border-radius: 10px;
+        }
+      }
+      .top-icon {
+        padding: 20px;
       }
 
       & > div:first-child {
         // padding: 0 75px !important;
-        height: 100px;
+        // height: 100px;
         border-right: 2px solid #ebebeb;
         padding: 0 127px;
         .top-icon > svg.icon {

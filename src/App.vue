@@ -215,7 +215,11 @@
                           "
                         >
                           <div>
-                            <span class="blue-num" style="line-height: 1.5">43</span>
+                            <span class="blue-num" style="line-height: 1.5">{{
+                              roadClean[0].reduce((a, b) => {
+                                return a + b
+                              }, 0)
+                            }}</span>
                             <span> 辆</span>
                           </div>
                           <el-row
@@ -228,15 +232,21 @@
                           >
                             <el-col :span="24">
                               <span>洒水车</span>
-                              <span style="font-size: 15px" class="red-num">25</span>
+                              <span style="font-size: 15px" class="red-num">{{
+                                roadClean[0][0]
+                              }}</span>
                             </el-col>
                             <el-col :span="24">
                               <span>大型清扫车</span>
-                              <span style="font-size: 15px" class="green-num">8</span>
+                              <span style="font-size: 15px" class="green-num">{{
+                                roadClean[0][1]
+                              }}</span>
                             </el-col>
                             <el-col :span="24">
                               <span>大型洗扫车</span>
-                              <span style="font-size: 15px" class="orange-num">10</span>
+                              <span style="font-size: 15px" class="orange-num">{{
+                                roadClean[0][2]
+                              }}</span>
                             </el-col>
                           </el-row>
                         </div>
@@ -269,7 +279,11 @@
                           "
                         >
                           <div>
-                            <span class="blue-num" style="line-height: 1.5">209</span>
+                            <span class="blue-num" style="line-height: 1.5">{{
+                              roadClean[1].reduce((a, b) => {
+                                return a + b
+                              }, 0)
+                            }}</span>
                             <span> 人</span>
                           </div>
                           <el-row
@@ -282,16 +296,20 @@
                           >
                             <el-col :span="24">
                               <span>保洁</span>
-                              <span style="font-size: 15px" class="red-num">153</span>
+                              <span style="font-size: 15px" class="red-num">{{
+                                roadClean[1][0]
+                              }}</span>
                             </el-col>
                             <el-col :span="24">
                               <span>边坡</span>
-                              <span style="font-size: 15px" class="green-num">56</span>
+                              <span style="font-size: 15px" class="green-num">{{
+                                roadClean[1][1]
+                              }}</span>
                             </el-col>
                           </el-row>
                         </div>
                         <el-row align="middle" style="height: 127px; width: 50%">
-                          <v-chart class="chart" :option="option_pie" theme="RGYB" />
+                          <v-chart class="chart" :option="option_pie2" theme="RGYB" />
                         </el-row>
                       </el-col>
                     </el-row>
@@ -421,14 +439,18 @@
       </el-main>
     </el-container>
   </el-container>
-  <div id='visibility-tips'>
-  <el-empty :image-size="200" description="当前显示分辨率过小，请缩放浏览器或调整显示器（分辨率 >= 1200px）"/>
+  <div id="visibility-tips">
+    <el-empty
+      :image-size="200"
+      description="当前显示分辨率过小，请缩放浏览器或调整显示器（分辨率 >= 1200px）"
+    />
   </div>
 </template>
 
 <script setup>
   // import
   import { ref, reactive, onMounted } from 'vue'
+  import axios from 'axios'
   import icon from '@/components/icon'
   import NP from 'number-precision'
   import * as seamless from 'seamscroll'
@@ -608,9 +630,27 @@
           show: false
         },
         data: [
-          { value: 25, name: '洒水车' },
-          { value: 8, name: '大型清扫车' },
-          { value: 10, name: '大型洗扫车' }
+          { value: 0, name: '洒水车' },
+          { value: 0, name: '大型清扫车' },
+          { value: 0, name: '大型洗扫车' }
+        ]
+      }
+    ]
+  })
+  const option_pie2 = ref({
+    tooltip: {
+      trigger: 'item'
+    },
+    series: [
+      {
+        type: 'pie',
+        radius: ['55%', '95%'],
+        label: {
+          show: false
+        },
+        data: [
+          { value: 0, name: '保洁' },
+          { value: 0, name: '边坡' }
         ]
       }
     ]
@@ -618,6 +658,7 @@
 
   const digitNums = ref({})
 
+  const roadClean = ref([[], []])
   // lifecycle
   onMounted(() => {
     seamless.init({
@@ -630,7 +671,6 @@
       .post('https://cxjg.91jt.net:9090/danger_jgd/a/mobile/GetListOwner')
       .then(({ body: res }) => {
         const { ownerType, ownerCount, warehouseType, workType } = res
-        console.log(ownerType, ownerCount, warehouseType, workType)
 
         // 数字公路-运输监管
         let t1 = []
@@ -660,16 +700,16 @@
         data_order.value[3].value = workType[0].ranksnumber
         data_order.value[4].value = workType[0].individual
         data_order.value[5].value = workType[0].vehicle
-        console.log(data_order)
       })
       .catch(err => {
-        console.log('获取 运输监管，应急工单 数据异常')
+        console.log(err)
       })
-
-    $axios
-      .post('https://yx.91jt.net/testroad/api/pc/pcHome/queryRoadIndexCount')
-      .then(res => {
-        console.log(res)
+    // var data = ''
+    axios({
+      method: 'post',
+      url: 'https://yx.91jt.net/testroad/api/pc/pcHome/queryRoadIndexCount'
+    })
+      .then(({ data: res }) => {
         // 国道 groad groadNum
         // 省道 sroad sroadNum
         // 县道 xroad xroadNum
@@ -691,8 +731,6 @@
           villageMileage: croad = 0,
           villageNums: croadNum = 0
         } = res
-        debugger
-        console.log(NP.plus(1.3, 22))
         digitNums.value = Object.assign(digitNums.value, {
           groad,
           groadNum,
@@ -738,11 +776,32 @@
           ]
         })
         option.value.series[0].data = [
-          { value: groad, name: `国道 \n ${groad}公里` },
-          { value: sroad, name: `省道 \n ${sroad}公里` },
-          { value: xroad, name: `县道 \n ${xroad}公里` }
+          { value: groad, name: `国道(公里)` },
+          { value: sroad, name: `省道(公里)` },
+          { value: xroad, name: `县道(公里)` }
         ]
-        console.log(digitNums)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    $axios
+      .get('http://218.75.53.84:9092/api/highwayClean/statistics')
+      .then(({ statistics }) => {
+        option_pie.value.series[0].data = [
+          { value: statistics.vehicle.VT001, name: '洒水车' },
+          { value: statistics.vehicle.VT003, name: '大型清扫车' },
+          { value: statistics.vehicle.VT005, name: '大型洗扫车' }
+        ]
+        roadClean.value[0][0] = statistics.vehicle.VT001
+        roadClean.value[0][1] = statistics.vehicle.VT003
+        roadClean.value[0][2] = statistics.vehicle.VT005
+
+        option_pie2.value.series[0].data = [
+          { value: statistics.person.WT001, name: '保洁' },
+          { value: statistics.person.WT003, name: '边坡' }
+        ]
+        roadClean.value[1][0] = statistics.person.WT001
+        roadClean.value[1][1] = statistics.person.WT003
       })
       .catch(err => {
         console.log(err)
@@ -823,7 +882,7 @@
       font-weight: bold;
       display: flex;
       align-items: center;
-          justify-content: flex-end;
+      justify-content: flex-end;
       &:hover {
         cursor: pointer;
       }

@@ -475,7 +475,7 @@
       {
         name: '公路保洁',
         icon: 'icon-gonglubaojietubiao',
-        link: ''
+        link: 'http://218.75.53.84:9092/clean_sys/#/datascreen/view?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE5MTA1NzIxNTAsInVzZXJuYW1lIjoiY2hhbmd4aW5nIn0.2BXyrjTj-KVV7urK5d6_46jOx5MT0IM3fCFXHLN6wFM'
       },
       {
         name: '运输监管',
@@ -811,10 +811,10 @@
 
   // events & funs
   const _foo = () => {}
-  
+
   const getAuthCode = async () => {
     const { dd } = await getDingSdk();
-    return new Promise((res, rej) => { 
+    return new Promise((res, rej) => {
       dd.getAuthCode({})
         .then(({ auth_code }) => {
           res(auth_code)
@@ -826,7 +826,7 @@
   const open = (link) => {
     if (!link) return;
     // 钉钉授权码只能使用一次，因此每次使用都需要调用sdk刷新
-    getAuthCode().then(authCode => { 
+    getAuthCode().then(authCode => {
       window.open(`${link}?authcode=${authCode}`);
     })
   }

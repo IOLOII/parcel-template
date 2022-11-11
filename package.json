@@ -5,10 +5,9 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "parcel ./index.html --lazy --open chrome --no-cache",
-    "build": "parcel build ./index.html --public-url ./",
+    "build": "rimraf dist/* && parcel build ./index.html --public-url ./",
     "build:analyze": "parcel build ./index.html --reporter @parcel/reporter-bundle-analyzer",
-    "build:compatible": "parcel build ./index.html --reporter @parcel/reporter-bundle-buddy --outputFS dist2",
-    "prebuild": "rimraf dist/*"
+    "build:compatible": "parcel build ./index.html --reporter @parcel/reporter-bundle-buddy --outputFS dist2"
   },
   "keywords": [],
   "author": "IOLOII",

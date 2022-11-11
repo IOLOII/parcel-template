@@ -432,6 +432,7 @@
   import icon from '@/components/icon'
   import NP from 'number-precision'
   import * as seamless from 'seamscroll'
+  import { getDingSdk } from '@/lib/dingSdk'
 
   // variables & refs & run
   const _refs = ref(null)
@@ -462,7 +463,7 @@
       {
         name: '应急工单',
         icon: 'icon-yingjigongdantubiao',
-        link: 'https://cxjg.91jt.net:9090/pc/'
+        link: 'https://cxjg.91jt.net:9090/rmsRoad/sys/zzdLogin'
       },
       {
         name: '长智寻路',
@@ -751,8 +752,24 @@
 
   // events & funs
   const _foo = () => {}
-  const open = link => {
-    link && window.open(link)
+  
+  const getAuthCode = async () => {
+    const { dd } = await getDingSdk();
+    return new Promise((res, rej) => { 
+      dd.getAuthCode({})
+        .then(({ auth_code }) => {
+          res(auth_code)
+        })
+        .catch(err => rej({ err, msg: '获取授权码失败' }))
+    })
+  }
+
+  const open = (link) => {
+    if (!link) return;
+    // 钉钉授权码只能使用一次，因此每次使用都需要调用sdk刷新
+    getAuthCode().then(authCode => { 
+      window.open(`${link}?authcode=${authCode}`);
+    })
   }
 </script>
 <style lang="scss">

@@ -823,15 +823,40 @@
     })
   }
 
+  // todo 钉钉无法直接重定向，使用 iframe 替代
+  const openSystem = (url) => {
+    const iframe = document.createElement('iframe')
+    iframe.src = url
+    iframe.setAttribute('class', 'system-iframe')
+
+    document.body.append(iframe)
+  }
+
+  const closeSystem = () => {
+    document.querySelectorAll('.system-iframe')
+      .forEach(dom => document.body.removeChild(dom))
+  }
+
   const open = (link) => {
     if (!link) return;
-    // 钉钉授权码只能使用一次，因此每次使用都需要调用sdk刷新
     getAuthCode().then(authCode => {
-      window.open(`${link}?authcode=${authCode}`);
+      openSystem(`${link}?authcode=${authCode}`)
     })
   }
 </script>
 <style lang="scss">
+  .system-iframe {
+    position: absolute;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+    border: 0;
+
+    background-color: #EBEEF5;
+    z-index: 999;
+  }
+
   *::-webkit-scrollbar {
     width: 5px;
     height: 5px;

@@ -15,7 +15,7 @@ import ECharts from 'vue-echarts'
 
 import service from '@/lib/request'
 import eventBus from '@/lib/eventBus'
-
+import '@/lib/globalDIngApi'
 
 window.$axios = service
 window.$message = ElMessage

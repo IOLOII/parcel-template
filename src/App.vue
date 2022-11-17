@@ -361,33 +361,11 @@
               <h2 class="h2-title">通知公告</h2>
               <div style="overflow: hidden" class="card">
                 <div class="notice-area">
-                  <div>
-                    <span>2022年春节前安全道路维护</span>
-                    <span>2022-11-02</span>
-                  </div>
-                  <div>
-                    <span>11月份新下发的规章制度！</span>
-                    <span>2022-11-01</span>
-                  </div>
-                  <div>
-                    <span>2022年下半年第三季度安全培训会议</span>
-                    <span>2022-11-01</span>
-                  </div>
-                  <div>
-                    <span>2022年上半年第二季度安全培训会议</span>
-                    <span>2022-11-01</span>
-                  </div>
-                  <div>
-                    <span>2022年上半年第一季度安全培训会议</span>
-                    <span>2022-11-01</span>
-                  </div>
-                  <div>
-                    <span>2022年上半年第一季度安全培训会议</span>
-                    <span>2022-11-01</span>
-                  </div>
-                  <div>
-                    <span>2022年上半年第一季度安全培训会议</span>
-                    <span>2022-11-01</span>
+                  <div v-for="not in notifies" :key="not.id">
+                    <div>
+                      <div class="roll">{{ not.title }}</div>
+                    </div>
+                    <!-- <span>2022-11-02</span> -->
                   </div>
                 </div>
               </div>
@@ -449,7 +427,7 @@
 
 <script setup>
   // import
-  import { ref, reactive, onMounted } from 'vue'
+  import { ref, reactive, onMounted, nextTick } from 'vue'
   import axios from 'axios'
   import icon from '@/components/icon'
   import NP from 'number-precision'
@@ -475,7 +453,8 @@
       {
         name: '公路保洁',
         icon: 'icon-gonglubaojietubiao',
-        link: 'http://218.75.53.84:9092/clean_sys/#/datascreen/view?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE5MTA1NzIxNTAsInVzZXJuYW1lIjoiY2hhbmd4aW5nIn0.2BXyrjTj-KVV7urK5d6_46jOx5MT0IM3fCFXHLN6wFM'
+        link:
+          'http://218.75.53.84:9092/clean_sys/#/datascreen/view?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE5MTA1NzIxNTAsInVzZXJuYW1lIjoiY2hhbmd4aW5nIn0.2BXyrjTj-KVV7urK5d6_46jOx5MT0IM3fCFXHLN6wFM'
       },
       {
         name: '运输监管',
@@ -660,14 +639,10 @@
   const digitNums = ref({})
 
   const roadClean = ref([[], []])
+
+  const notifies = ref([])
   // lifecycle
   onMounted(() => {
-    seamless.init({
-      dom: document.querySelector('.notice-area'),
-      step: 0.2,
-      singleHeight: 0
-    })
-
     $axios
       .post('https://cxjg.91jt.net:9090/danger_jgd/a/mobile/GetListOwner')
       .then(({ body: res }) => {
@@ -708,7 +683,7 @@
     // var data = ''
     axios({
       method: 'post',
-      url: 'https://yx.91jt.net/testroad/api/pc/pcHome/queryRoadIndexCount'
+      url: 'https://cxjt.91jt.net:9090/rmsRoad/api/pc/pcHome/queryRoadIndexCount'
     })
       .then(({ data: res }) => {
         // 国道 groad groadNum
@@ -807,13 +782,26 @@
       .catch(err => {
         console.log(err)
       })
+    $axios
+      .get('https://cxjt.91jt.net:9090/rmsRoad/notify/notifyPcDtos?current=0&size=30')
+      .then(({ records: res }) => {
+        notifies.value = res
+
+        nextTick(() => {
+          seamless.init({
+            dom: document.querySelector('.notice-area'),
+            step: 0.2,
+            singleHeight: 0
+          })
+        })
+      })
   })
 
   // events & funs
   const _foo = () => {}
 
   const getAuthCode = async () => {
-    const { dd } = await getDingSdk();
+    const { dd } = await getDingSdk()
     return new Promise((res, rej) => {
       dd.getAuthCode({})
         .then(({ auth_code }) => {
@@ -824,7 +812,7 @@
   }
 
   // todo 钉钉无法直接重定向，使用 iframe 替代
-  const openSystem = (url) => {
+  const openSystem = url => {
     const iframe = document.createElement('iframe')
     iframe.src = url
     iframe.setAttribute('class', 'system-iframe')
@@ -833,12 +821,13 @@
   }
 
   const closeSystem = () => {
-    document.querySelectorAll('.system-iframe')
+    document
+      .querySelectorAll('.system-iframe')
       .forEach(dom => document.body.removeChild(dom))
   }
 
-  const open = (link) => {
-    if (!link) return;
+  const open = link => {
+    if (!link) return
     getAuthCode().then(authCode => {
       openSystem(`${link}?authcode=${authCode}`)
     })
@@ -853,7 +842,7 @@
     height: 100%;
     border: 0;
 
-    background-color: #EBEEF5;
+    background-color: #ebeef5;
     z-index: 999;
   }
 
@@ -1240,6 +1229,25 @@
       display: inline-block;
       border-radius: 50%;
       transform: translateY(-50%);
+    }
+  }
+
+  .roll {
+    white-space: nowrap;
+    &:hover {
+      animation: move 6s ease-in-out;
+      // animation-direction: alternate;
+      animation-iteration-count: infinite;
+      animation-delay: .3s;
+    }
+  }
+  div:has(> .roll) {
+    overflow: hidden;
+  }
+  @keyframes move {
+    100% {
+      // margin-right: 100%;
+      transform: translateX(-100%);
     }
   }
 </style>

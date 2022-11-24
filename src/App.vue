@@ -453,11 +453,7 @@
       {
         name: '公路保洁',
         icon: 'icon-gonglubaojietubiao',
-        link:
-          `https://cxjt.91jt.net:9090/clean_sys/#/datascreen/view?
-           token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3
-           NjM4OTIyODEsInVzZXJuYW1lIjoiY2hhbmd4aW5nIn0._Vncz61WYXj
-           hCXR5_4e2i8vziuYOWXl7_VrDI08NGH8`
+        link: 'https://cxjt.91jt.net:9090/clean_sys/#/datascreen/view?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NjM4OTIyODEsInVzZXJuYW1lIjoiY2hhbmd4aW5nIn0._Vncz61WYXjhCXR5_4e2i8vziuYOWXl7_VrDI08NGH8'
       },
       {
         name: '运输监管',
@@ -764,7 +760,7 @@
         console.log(err)
       })
     $axios
-      .get('http://218.75.53.84:9092/api/highwayClean/statistics')
+      .get('https://cxjt.91jt.net:9090/yg_clean/highwayClean/statistics')
       .then(({ statistics }) => {
         option_pie.value.series[0].data = [
           { value: statistics.vehicle.VT001, name: '洒水车' },

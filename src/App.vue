@@ -454,7 +454,10 @@
         name: '公路保洁',
         icon: 'icon-gonglubaojietubiao',
         link:
-          'http://218.75.53.84:9092/clean_sys/#/datascreen/view?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE5MTA1NzIxNTAsInVzZXJuYW1lIjoiY2hhbmd4aW5nIn0.2BXyrjTj-KVV7urK5d6_46jOx5MT0IM3fCFXHLN6wFM'
+          `https://cxjt.91jt.net:9090/clean_sys/#/datascreen/view?
+           token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3
+           NjM4OTIyODEsInVzZXJuYW1lIjoiY2hhbmd4aW5nIn0._Vncz61WYXj
+           hCXR5_4e2i8vziuYOWXl7_VrDI08NGH8`
       },
       {
         name: '运输监管',

@@ -577,9 +577,9 @@ const option = ref({
       type: "pie",
       radius: "85%",
       data: [
-        { value: 1048, name: "Search \n Engine" },
-        { value: 735, name: "Direct" },
-        { value: 580, name: "Email" },
+        { value: 0, name: "" },
+        { value: 0, name: "" },
+        { value: 0, name: "" },
       ],
       emphasis: {
         itemStyle: {
@@ -627,7 +627,7 @@ const option_bar2 = ref({
   },
   yAxis: {
     type: "category",
-    data: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+    data: [],
   },
   xAxis: {
     type: "value",
@@ -635,7 +635,7 @@ const option_bar2 = ref({
   },
   series: [
     {
-      data: [120, 200, 150, 80, 70],
+      data: [],
       type: "bar",
       barWidth: 20,
       color: "#f34b3c",
@@ -741,10 +741,13 @@ onMounted(() => {
     .catch((err) => {
       console.log(err);
     });
-  // var data = ''
   axios({
     method: "post",
-    url: "https://cxjt.91jt.net:9090/rmsRoad/api/pc/pcHome/queryRoadIndexCount",
+    url: process.env.VUE_APP_BASE_API + "/rmsRoad/api/pc/pcHome/queryRoadIndexCount",
+    data: 33,
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
     .then(({ data: res }) => {
       // 国道 groad groadNum
@@ -822,7 +825,7 @@ onMounted(() => {
       console.log(err);
     });
   $axios
-    .get("https://cxjt.91jt.net:9090/yg_clean/highwayClean/statistics")
+    .get("/yg_clean/highwayClean/statistics")
     .then(({ statistics }) => {
       option_pie.value.series[0].data = [
         { value: statistics.vehicle.VT001, name: "洒水车" },
@@ -845,7 +848,7 @@ onMounted(() => {
     });
   $axios
     .get(
-      "https://cxjt.91jt.net:9090/rmsRoad/notify/notifyPcDtos?current=0&size=30"
+      "/rmsRoad/notify/notifyPcDtos?current=0&size=30"
     )
     .then(({ records: res }) => {
       notifies.value = res;

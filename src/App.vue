@@ -576,6 +576,7 @@ const option = ref({
     {
       type: "pie",
       radius: "85%",
+      radius: [0, 70],
       data: [
         { value: 0, name: "" },
         { value: 0, name: "" },
@@ -743,8 +744,8 @@ onMounted(() => {
     });
   axios({
     method: "post",
-    url: process.env.VUE_APP_BASE_API + "/rmsRoad/api/pc/pcHome/queryRoadIndexCount",
-    data: 33,
+    url: "https://szncl.zjcx.gov.cn:12443/xmzx/api/api/pc/pcHome/queryRoadIndexCount",
+    data: 330522000000,
     headers: {
       'Content-Type': 'application/json'
     }

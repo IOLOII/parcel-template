@@ -53,5 +53,12 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "engines": {
     "node": "14.20.0 || >= 14"
+  },
+  "targets": {
+    "main": false,
+    "default": {
+      "context": "browser",
+      "sourceMap": false
+    }
   }
 }

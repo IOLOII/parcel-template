@@ -3,3 +3,4 @@ dist
 .parcel-cache
 parcel-bundle-reports
 .vscode/extensions.json
+**/.DS_Store

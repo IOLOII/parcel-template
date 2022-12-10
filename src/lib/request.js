@@ -9,15 +9,15 @@ import store from '@/store'
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  withCredentials: true, // send cookies when cross-domain requests
+  // withCredentials: true, // send cookies when cross-domain requests
   timeout: 30000, // request timeout
-  responseType: 'json'
+  // responseType: 'json'
 })
 
 // request interceptor
 service.interceptors.request.use(
   config => {
-    config.headers['token'] = store.getters.token
+    // config.headers['token'] = store.getters.token
     if (config.method === 'post') {
       if (!(config.data instanceof FormData)) {
         config.data = {

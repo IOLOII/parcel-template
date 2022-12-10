@@ -8,13 +8,14 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
+import '/static/iconfont_symbol'
 
 import '@/theme/echarts/theme_RGYB'
 import ECharts from 'vue-echarts'
 
 import service from '@/lib/request'
 import eventBus from '@/lib/eventBus'
-
+import '@/lib/globalDIngApi'
 
 window.$axios = service
 window.$message = ElMessage

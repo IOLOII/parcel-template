@@ -14,7 +14,6 @@
         <el-col
           :span="12"
           class="right-title"
-          @click="open('http://183.248.49.207:8085/#/')"
         >
           <icon type="icon-jiashicangtubiao" style="font-size: 24px" />
           <span style="padding-left: 8px">吴老师</span>
@@ -49,7 +48,7 @@
                     '--color-end': data.color[1]
                   }"
                 >
-                  <div>
+                  <div style="max-width:45%;">
                     <div style="font-size: 16px">{{ data.label }}</div>
                     <div style="font-size: 48px">
                       {{ data.value }}
@@ -120,7 +119,7 @@
                       </el-row>
                     </el-col>
                     <el-col :span="13">
-                      <v-chart class="chart" :option="option" theme="RGYB" />
+                      <v-chart class="chart" :option="option" theme="RGYB" autoresize/>
                     </el-col>
                   </el-row>
                   <el-row align="middle">
@@ -144,13 +143,19 @@
                         <el-col :span="24" style="flex-wrap: wrap">
                           <span style="display: inline-block">{{ col.label[1] }}</span>
                           <span class="green-num">
-                            {{ col.v2 }}{{ col.v3 >= 0 ? '/' + col.v3 : '' }}
+                            <span class="orange-num">{{ col.v2 }}</span>
+                            <span class="green-num">{{
+                              col.v3 >= 0 ? '/' + col.v3 : ''
+                            }}</span>
                           </span>
                         </el-col>
                         <el-col :span="24" style="flex-wrap: wrap">
                           <span style="display: inline-block">{{ col.label[2] }}</span>
                           <span class="orange-num">
-                            {{ col.v4 }}{{ col.v5 >= 0 ? '/' + col.v5 : '' }}
+                            <span class="green-num">{{ col.v4 }}</span>
+                            <span class="orange-num">{{
+                              col.v5 >= 0 ? '/' + col.v5 : ''
+                            }}</span>
                           </span>
                         </el-col>
                       </el-row>
@@ -168,7 +173,7 @@
                     <el-row style="height: calc(100% - 67px)">
                       <!-- 数据元素 -->
                       <el-col :span="11" style="height: 220px">
-                        <v-chart class="chart" :option="option_bar" theme="RGYB" />
+                        <v-chart class="chart" :option="option_bar" theme="RGYB" autoresize/>
                       </el-col>
                       <!-- 数据元素 -->
                       <el-col
@@ -269,7 +274,7 @@
                           </el-row>
                         </div>
                         <el-row align="middle" style="height: 127px; width: 50%">
-                          <v-chart class="chart" :option="option_pie" theme="RGYB" />
+                          <v-chart class="chart" :option="option_pie" theme="RGYB" autoresize/>
                         </el-row>
                       </el-col>
 
@@ -336,7 +341,7 @@
                           </el-row>
                         </div>
                         <el-row align="middle" style="height: 127px; width: 50%">
-                          <v-chart class="chart" :option="option_pie2" theme="RGYB" />
+                          <v-chart class="chart" :option="option_pie2" theme="RGYB" autoresize/>
                         </el-row>
                       </el-col>
                     </el-row>
@@ -347,7 +352,7 @@
                   <h3 class="h3-title">累计借阅</h3>
                   <el-row style="height: calc(100% - 67px)">
                     <el-col :span="24" style="height: 220px">
-                      <v-chart class="chart" :option="option_bar2" theme="RGYB" />
+                      <v-chart class="chart" :option="option_bar2" theme="RGYB" autoresize/>
                     </el-col>
                     <el-col :span="24" style="height: 50%">
                       <el-row style="padding: 0px 25px 10px">
@@ -490,7 +495,7 @@
         //   "https://cxjt.91jt.net:9090/clean_sys/#/datascreen/view?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NjM4OTIyODEsInVzZXJuYW1lIjoiY2hhbmd4aW5nIn0._Vncz61WYXjhCXR5_4e2i8vziuYOWXl7_VrDI08NGH8",
       },
       {
-        name: '数字资源方案',
+        name: '数字资源',
         icon: 'icon-yunshujianguantubiao'
         // link: "https://cxjg.91jt.net:9090/danger_jgd/a/login",
       },
@@ -514,7 +519,7 @@
         color: ['#4cbcfc', '#2d7ffa']
       },
       {
-        label: '查询预览一体机(台)',
+        label: '图书查询预览一体机(台)',
         value: '9',
         icon: 'icon-xiangzhentubiao',
         color: ['#4CE09B', '#07B077']
@@ -604,39 +609,128 @@
   // 数字公路-应急工单
   const option_bar2 = ref({
     tooltip: {
-      trigger: 'axis'
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985'
+        }
+      }
     },
-    yAxis: {
-      type: 'category',
-      data: [
-        '财经学院',
-        '管理学院',
-        '机电工程学院',
-        '建筑工程学院',
-        '人文社科学院',
-        '信息工程学院',
-        '外语外贸学院'
-      ]
+    // legend: {
+    //   data: [
+    //     '财经学院',
+    //     '管理学院',
+    //     '机电工程学院',
+    //     '建筑工程学院',
+    //     '人文社科学院',
+    //     '信息工程学院',
+    //     '外语外贸学院'
+    //   ]
+    // },
+    grid: {
+      left: '5%',
+      right: '8%',
+      bottom: '3%',
+      containLabel: true,
+      height: '176px'
     },
-    xAxis: {
-      type: 'value',
-      show: false
-    },
-    series: [
+    xAxis: [
       {
-        data: [16446, 33213, 22212, 17090, 20711, 15001, 31342],
-        type: 'bar',
-        barWidth: 20,
-        color: '#f34b3c'
+        type: 'category',
+        boundaryGap: false,
+        data: ['2016', '2017', '2018', '2019', '2020', '2021', '2022']
       }
     ],
-    grid: {
-      left: 120,
-      right: 80,
-      top: 10,
-      bottom: 10,
-      height: '176px'
-    }
+    yAxis: [
+      {
+        type: 'value'
+      }
+    ],
+    series: [
+      {
+        name: '财经学院',
+        type: 'line',
+        stack: 'Total',
+        areaStyle: {},
+        emphasis: {
+          focus: 'series'
+        },
+        data: [5082, 6561, 8224, 10031, 12880, 15113, 16446]
+      },
+      {
+        name: '管理学院',
+        type: 'line',
+        stack: 'Total',
+        areaStyle: {},
+        emphasis: {
+          focus: 'series'
+        },
+        data: [15992, 18481, 22103, 23019, 27884, 30814, 32213]
+      },
+      {
+        name: '机电工程学院',
+        type: 'line',
+        stack: 'Total',
+        areaStyle: {},
+        emphasis: {
+          focus: 'series'
+        },
+        data: [12042, 13840, 14920, 17553, 18264, 20502, 22212]
+      },
+      {
+        name: '建筑工程学院',
+        type: 'line',
+        stack: 'Total',
+        areaStyle: {},
+        emphasis: {
+          focus: 'series'
+        },
+        data: [6502, 9201, 10884, 12774, 13853, 15682, 17090]
+      },
+      {
+        name: '人文社科学院',
+        type: 'line',
+        stack: 'Total',
+        label: {
+          show: true,
+          position: 'top'
+        },
+        areaStyle: {},
+        emphasis: {
+          focus: 'series'
+        },
+        data: [10943, 12853, 13986, 15278, 17322, 18472, 20711]
+      },
+      {
+        name: '信息工程学院',
+        type: 'line',
+        stack: 'Total',
+        label: {
+          show: true,
+          position: 'top'
+        },
+        areaStyle: {},
+        emphasis: {
+          focus: 'series'
+        },
+        data: [1820, 5401, 10910, 13214, 14523, 15001, 17222]
+      },
+      {
+        name: '外语外贸学院',
+        type: 'line',
+        stack: 'Total',
+        label: {
+          show: true,
+          position: 'top'
+        },
+        areaStyle: {},
+        emphasis: {
+          focus: 'series'
+        },
+        data: [5192, 8210, 10213, 13991, 16281, 19848, 23957]
+      }
+    ]
   })
   const data_order = ref([
     { value: 135, label: '馆藏纸质图书(万册)', color: '#FF9F00' },
@@ -704,30 +798,30 @@
     totalRightMil: 0,
     totalRight: [
       {
-        label: ['农村公路(公里)', '乡道(公里/条)', '村道(公里/条)'],
-        v1: 0,
-        v2: 0,
-        v3: 0,
-        v4: 0,
-        v5: 0
+        label: ['实时借阅分布', '自然科学图书(本)', '社会科学图书(本)'],
+        v1: 435,
+        v2: 323,
+        v3: 126,
+        v4: 112,
+        v5: 44
       },
       {
-        label: ['桥梁(座)', '桥梁(延米)', '公交站台(个)'],
+        label: ['学书库', '归还', '借出'],
         v1: 292,
-        v2: 32259.387,
+        v2: 62,
         v4: 230
       },
       {
-        label: ['绿化(万平方米)', '绿化率', '服务站'],
-        v1: 216.2,
+        label: ['外语书库', '归还', '借出'],
+        v1: 106,
         v2: 100,
         v4: 6
       },
       {
-        label: ['涵洞(座)', '交调站点(个)', '治超站点(个)'],
-        v1: 32,
-        v2: 22,
-        v4: 4
+        label: ['艺术书库', '归还', '借出'],
+        v1: 26,
+        v2: 12,
+        v4: 14
       }
     ]
   })

@@ -1,11 +1,13 @@
 
 import * as echarts from 'echarts'
-const data = {
+const data =
+
+{
     "color": [
-        "#f55545",
-        "#00b853",
-        "#ff9f00",
-        "#4793fc",
+        "#5470c6",
+        "#91cc75",
+        "#fac858",
+        "#ee6666",
         "#73c0de",
         "#3ba272",
         "#fc8452",
@@ -114,10 +116,10 @@ const data = {
         "symbol": "emptyCircle",
         "smooth": false,
         "color": [
-            "#f55545",
-            "#00b853",
-            "#ff9f00",
-            "#4793fc",
+            "#5470c6",
+            "#91cc75",
+            "#fac858",
+            "#ee6666",
             "#73c0de",
             "#3ba272",
             "#fc8452",
@@ -392,5 +394,6 @@ const data = {
         }
     }
 }
+
 echarts.registerTheme('RGYB', data)
 export default {}
